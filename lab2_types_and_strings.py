@@ -14,24 +14,40 @@ class Types_and_Strings:
         print("Originally entered: "+ message)
 
         # print only first and last of the sentence
+        new = message.split()
 
+        out = new[0] + " " + new[-1]
+
+        print(out)
 
         # use slice notation
+        print(message[:5])
+
 
 
         # escaping a character
+        print("He said \"that's fantastic\"!")
 
 
         # find all a's in the input word and count how many there are
+        message.lower()
+
+        x = message.find("a")
+        print(x)
+        i = message.count("a")
+
+        print("There are ", i, " a's in the sentence.")
+
 
 
         # replace all occurences of the character a with the - sign
         # try this first by assignment of a location in a string and
         # observe what happens, then use replace()
-
+        rep = message.replace("a", "-")
+        print(rep)
 
         # printing only characters at even index positions
-
+        print(message[::2])
 
     def play_with_lists(self):
         message = input("Please enter a whole sentence: ")
