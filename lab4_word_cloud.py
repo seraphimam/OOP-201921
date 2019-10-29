@@ -27,10 +27,17 @@ class WordCloud:
             <title>Tag Cloud Generator</title>\
             </head>\
             <body>\
-            <div style="text-align: center; vertical-align: middle; font-family: arial; color: white; background-color:black; border:1px solid black">')
+            <div style="width:80vw; margin:auto; text-align: center; vertical-align: middle; font-family: arial; color: white; background-color:black; border:1px solid black">')
 
         # your code goes here!
-        fo.write('<span style="font-size: 10px"> HELLO </span>')
+        #fo.write('<span style="font-size: 10px"> HELLO </span>')
+        x = 0
+        for i in the_dict.keys():
+            fo.write('<span style="font-size: ' + str(the_dict[i] * 10) + 'px">' + i + '</span>')
+            x += 1
+            if x > 15:
+                fo.write('<br>')
+                x = 0
 
         fo.write('</div>\
             </body>\
@@ -60,7 +67,18 @@ class WordCloud:
     def create_dict(self):
         my_dict = {}
         # your code goes here:
+        file = open('gettisburg.txt', 'r')
 
+        for x in file:
+            x = x.lower()
+            x = x.split()
+
+            for w in x:
+                self.add_to_dict(w, my_dict)
+
+        file.close()
+
+        print(my_dict)
         return my_dict
 
     # helper function that is called from
@@ -72,8 +90,17 @@ class WordCloud:
     # returns a dictionary
     def add_to_dict(self, word, the_dict):
         # your code goes here
+        for i in the_dict.keys():
+            if i == word:
+                the_dict[i] += 1
+                return the_dict
+        else:
+            the_dict[word] = 1
 
         return the_dict
+
+    def print_dict(self, the_dict):
+        print(the_dict)
 
 
 wc = WordCloud()
