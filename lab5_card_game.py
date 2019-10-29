@@ -10,6 +10,7 @@ from queue import Queue
 
 # to use the shuffle for shuffling the cards
 from random import shuffle
+import random
 
 class CardGame(Frame):
 
@@ -21,7 +22,7 @@ class CardGame(Frame):
         # shuffle the cards before first use
         # variable for holding the score
         self.player_score=0
-
+        self.is_finish = False
         self.init_window()
 
     # used by __init__
@@ -46,21 +47,69 @@ class CardGame(Frame):
         self.open_card.grid(row=0, column=0, padx=2, pady=2)
         self.open_card.photo = the_card
 
-        closed_deck = Button(cards_frame)
+        closed_deck = Button(cards_frame, command=self.get_card)
         closed_card = PhotoImage(file='cards/closed_deck.gif')
         closed_deck.config(image=closed_card)
         closed_deck.grid(row=0, column=1, padx=2, pady=2)
         closed_deck.photo = closed_card
 
-        done_button = Button(button_frame, text="I'm done!")
+        done_button = Button(button_frame, text="I'm done!", command=self.check)
         done_button.grid(row=0, column=0, pady=12)
-        new_game_button = Button(button_frame, text="New Game")
+        new_game_button = Button(button_frame, text="New Game", command=self.reset)
         new_game_button.grid(row=1, column=0, pady=13)
         exit_button = Button(button_frame, text="Exit", command=self.game_exit)
         exit_button.grid(row=2, column=0, pady=13)
 
         self.score_label = Label(score_frame, text="Your score: "+ str(self.player_score), justify=LEFT)
         self.score_label.pack()
+
+    def get_card(self):
+        if self.game() is True and self.is_finish is False:
+            x = random.randint(1, 13)
+            y = random.randint(0, 3)
+
+            pic = ['jack', 'queen', 'king']
+            suits = ['diamonds', 'clubs', 'hearts', 'spades']
+
+            if x < 11:
+                card = PhotoImage(file='cards/' + str(x) + '_' + suits[y] + '.gif')
+
+            else:
+                x -= 11
+                card = PhotoImage(file='cards/' + pic[x] + '_' + suits[y] + '.gif')
+                x += 11
+
+            self.score(x)
+            self.open_card.config(image=card)
+            self.open_card.photo = card
+
+    def score(self, val):
+        self.player_score += val
+        self.score_label.config(text="Your score: " + str(self.player_score))
+        self.game()
+
+    def game(self):
+        if self.player_score > 21:
+            self.score_label.config(text='Your score: ' + str(self.player_score) + ' - busted, cannot draw more cards.')
+            self.is_finish = True
+            return False
+        else:
+            return True
+
+    def check(self):
+        self.is_finish = True
+        if self.player_score == 21:
+            self.score_label.config(text='Congratulations, you won!')
+        else:
+            self.score_label.config(text='Would you like to play again?')
+
+    def reset(self):
+        self.player_score = 0
+        self.score_label.config(text="Your score: " + str(self.player_score))
+        card = PhotoImage(file='cards/closed_deck.gif')
+        self.open_card.config(image=card)
+        self.open_card.photo = card
+        self.is_finish = False
 
 
     # called by the exit_button Button
