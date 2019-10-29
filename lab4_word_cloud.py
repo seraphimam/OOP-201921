@@ -38,9 +38,21 @@ class WordCloud:
 
 
     # opens the input file gettisburg.txt
+    fs = open("gettisburg.txt")
+    doc = ""
+    dict = {}
     # remember to open in in the correct mode
     # reads the file line by line
+    for line in fs:
+        doc = doc + line
+        dict = line.split()
+
+    print(doc)
+
+    for word in dict:
+        print(word)
     # creates the dictionary containing the word itself
+
     # and how often it occurs in a sentence
     # makes a call to add_to_dict where the dictionary
     # is actually populated

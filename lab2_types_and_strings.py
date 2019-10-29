@@ -49,12 +49,17 @@ class Types_and_Strings:
         # printing only characters at even index positions
         print(message[::2])
 
+
+
     def play_with_lists(self):
         message = input("Please enter a whole sentence: ")
         print("Originally entered: "+ message)
 
         # hand the input string to a list and print it out
+        wordlist = message.split();
 
+
+        print(wordlist)
 
         # append a new element to the list and print
 
@@ -77,4 +82,4 @@ class Types_and_Strings:
 
 tas = Types_and_Strings()
 tas.play_with_strings()
-#tas.play_with_lists()
+tas.play_with_lists()
