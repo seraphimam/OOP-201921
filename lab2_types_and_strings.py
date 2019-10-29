@@ -61,12 +61,12 @@ class Types_and_Strings:
         print("Originally entered: "+ message)
 
         # hand the input string to a list and print it out
-<<<<<<< HEAD
+
         wordlist = message.split();
 
 
         print(wordlist)
-=======
+
         user = []
         user += message.split()
         print(user)
@@ -74,7 +74,7 @@ class Types_and_Strings:
          #   user.append(i)
 
         #print(*user)
->>>>>>> origin/master
+
 
         # append a new element to the list and print
         user.append(" since")
@@ -108,9 +108,9 @@ class Types_and_Strings:
 
 
 tas = Types_and_Strings()
-<<<<<<< HEAD
+
 tas.play_with_strings()
-=======
+
 #tas.play_with_strings()
->>>>>>> origin/master
+
 tas.play_with_lists()
